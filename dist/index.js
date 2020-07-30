@@ -11,7 +11,7 @@ var _koaJwt = _interopRequireDefault(require("koa-jwt"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const CONTEXT_JWT = Symbol('context#lodeJWT');
+const CONTEXT_JWT = Symbol('context#jwt');
 
 class Option {
   constructor(opt) {
@@ -51,7 +51,7 @@ class JWT {
 
 }
 
-class LodeJWT {
+class LonoJWT {
   constructor(opt = {}) {
     this.name = 'jwt';
     this.isLode = true;
@@ -71,8 +71,16 @@ class LodeJWT {
     }
 
     const token = new JWT(this.opt);
-    lode.context[CONTEXT_JWT] = token;
-    lode.context.jwt = token;
+    Object.defineProperties(lode.context, {
+      [CONTEXT_JWT]: {
+        value: token,
+        writable: false
+      },
+      'jwt': {
+        value: token,
+        writable: false
+      }
+    });
     this.token = token;
     lode.use((0, _koaJwt.default)({
       secret: this.opt.secret,
@@ -85,5 +93,5 @@ class LodeJWT {
 }
 
 function _default(...arg) {
-  return new LodeJWT(...arg);
+  return new LonoJWT(...arg);
 }
