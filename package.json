@@ -1,6 +1,6 @@
 {
   "name": "@lono/jwt",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "@lono/jwt",
   "scripts": {
     "build": "babel lib -d dist",
